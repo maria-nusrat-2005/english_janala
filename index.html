@@ -113,8 +113,8 @@
                <h2 class="font-bold text-4xl"><span class="text-sky-500">English</span> is Easy!!</h2>
                <p class="text-xl">আজ থেকেই আপনার ভাষা শেখার যাত্রা শুরু করুন। আপনি যদি নতুন হন অথবা আপনার দক্ষতা বাড়াতে চান, আমাদের Interactive Lessons আপনাকে নিয়ে যাবে অন্য একটি Level এ</p>
                <form class="flex flex-col gap-2 ">
-                <input class="lg:w-1/4 border-1 border-gray-400 rounded-sm" type="text" placeholder="Enter Your Name">
-                <input class="lg:w-1/4 border-1 border-gray-400 rounded-sm"  type="password" placeholder="Password">
+                <input class="lg:w-1/4 border-1 border-gray-400 p-2 rounded-sm" type="text" placeholder="Enter Your Name">
+                <input class="lg:w-1/4 border-1 p-2 border-gray-400 rounded-sm"  type="password" placeholder="Password">
                </form>
                <button class="btn btn-active btn-primary">Get started</button>
             </div>
@@ -128,7 +128,10 @@
     <section>
                      <h2 class="font-bold text-4xl text-center"><span class="text-sky-500">Let's Learn Vocabularies</h2>
 
-                <div id="level-container"></div>
+                <div id="level-container" class="flex gap-2 justify-center items-center p-10 flex-wrap">
+                    <!-- levels will be injected here -->
+
+                </div>
     </section>
     <script src="./script/index.js"></script>
   </body>
