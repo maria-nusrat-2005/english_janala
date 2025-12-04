@@ -1,3 +1,8 @@
+const createElements = (arr) => {
+  const htmlElements = arr.map((el) => `<span class="btn">${el}</span>`);
+  return htmlElements.join(" ");
+};
+
 const loadlessons = () => {
   fetch("https://openapi.programming-hero.com/api/levels/all")
     .then((res) => res.json())
@@ -10,13 +15,43 @@ const removeActive = () => {
   lessonButton.forEach((btn) => btn.classList.remove("btn-active"));
 };
 
+const loadWordDetail = async (id) => {
+  const url = `https://openapi.programming-hero.com/api/word/${id}`;
+  const res = await fetch(url);
+  const details = await res.json();
+  displayWordDetail(details.data);
+};
+
+const displayWordDetail = (word) => {
+  console.log(word);
+  const detailsBox = document.getElementById("details-container");
+  detailsBox.innerHTML = `<div>
+          <h2>${word.word} <i class="fa-solid fa-microphone"></i></h2>
+        </div>
+        <div>
+          <h2>Meaning</h2>
+          <p>${word.meaning}</p>
+        </div>
+        <div>
+          <h2>Example</h2>
+          <p>${word.sentence}</p>
+        </div>
+        <div>
+          <h2>"সমার্থক শব্দ গুলো"</h2>
+          <div>
+           <div>${createElements(word.synonyms)} </div>
+          </div>`;
+
+  document.getElementById("my_modal_5").showModal();
+};
+
 const loadLevelWord = (id) => {
   const url = `https://openapi.programming-hero.com/api/level/${id}`;
   fetch(url)
     .then((res) => res.json())
     .then((data) => {
       //remove active class from all buttons
-      removeActive(); 
+      removeActive();
       const clickBtn = document.getElementById(`lesson-btn-${id}`);
       //console.log(clickBtn);
       clickBtn.classList.add("btn-active");
@@ -49,7 +84,9 @@ const displaylevelWord = (words) => {
       word.pronunciation
     }"</div>
       <div class="flex items-center justify-between mt-5">
-         <button class="btn"><i class="fa-solid fa-circle-info"></i></button>
+         <button onclick="loadWordDetail(${
+           word.id
+         })" class="btn"><i class="fa-solid fa-circle-info"></i></button>
          <button class="btn"><i class="fa-solid fa-volume-high"></i></button>
       </div>
      </div>`;
