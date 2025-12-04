@@ -15,16 +15,26 @@ const displaylevelWord = (words) => {
   const wordContainer = document.getElementById("word-container");
   wordContainer.innerHTML = "";
   if (words.length === 0) {
-    alert("No words found for this lesson.");
+    wordContainer.innerHTML = `
+             <div class="bg-sky-100 text-center col-span-full">
+      <p class="text-xl font-medium text-gray-800">এই Lesson এ এখনো কোন Vocabulary যুক্ত করা হয়নি।</p>
+      <h2>নেক্সট Lesson এ যান</h2>
+    </div>
+  `;
+
     return;
   }
   words.forEach((word) => {
     console.log(word);
     const card = document.createElement("div");
     card.innerHTML = ` <div class="bg-white rounded-xl  shadow-lg text-center p-5 ">
-      <h2 class="font-bold text-xl">"${word.word}"</h2>
+      <h2 class="font-bold text-xl">${
+        word.word ? word.word : "no word found"
+      } </h2>
       <p>Meaning /Pronounciation</p>
-      <div>"${word.meaning} / ${word.pronunciation}"</div>
+      <div>"${word.meaning ? word.meaning : "no meaning found"} / ${
+      word.pronunciation
+    }"</div>
       <div class="flex items-center justify-between mt-5">
          <button class="btn"><i class="fa-solid fa-circle-info"></i></button>
          <button class="btn"><i class="fa-solid fa-volume-high"></i></button>
