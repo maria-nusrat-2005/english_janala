@@ -4,6 +4,34 @@ const loadlessons = () => {
     .then((data) => displaylessons(data.data));
 };
 
+const loadLevelWord = (id) => {
+  const url = `https://openapi.programming-hero.com/api/level/${id}`;
+  fetch(url)
+    .then((res) => res.json())
+    .then((data) => displayalevelWord(data.data));
+};
+
+const displayalevelWord = (words) => {
+  const wordContainer = document.getElementById("word-container");
+  wordContainer.innerHTML = "";
+
+  words.forEach((word) => {
+    console.log(word);
+    const card = document.createElement("div");
+    card.innerHTML = ` <div class="bg-white rounded-xl  w-11/12  shadow-lg text-center p-5 mx-auto">
+      <h2 class="font-bold text-xl">"${word.word}"</h2>
+      <p>Meaning /Pronounciation</p>
+      <div>"${word.meaning} / ${word.pronunciation}"</div>
+      <div class="flex items-center justify-between mt-5">
+         <button class="btn"><i class="fa-solid fa-circle-info"></i></button>
+         <button class="btn"><i class="fa-solid fa-volume-high"></i></button>
+      </div>
+     </div>`;
+    wordContainer.append(card);
+  });
+};
+loadLevelWord();
+
 const displaylessons = (lessons) => {
   //get the container empty
   const levelContainer = document.getElementById("level-container");
@@ -15,7 +43,7 @@ const displaylessons = (lessons) => {
     console.log(lesson);
     const btnDiv = document.createElement("div");
     btnDiv.innerHTML = `
-                <button class="btn btn-outline btn-primary "
+                <button onclick="loadLevelWord(${lesson.level_no})" class="btn btn-outline btn-primary "
                 ><i class="fa-solid fa-book-open"></i> lesson - ${lesson.level_no}</button>    
              
     `;
